@@ -1464,7 +1464,7 @@ public class RmgController {
 	public ResponseEntity getEmployeeProfileReport(@RequestParam("empId") String empId) {
 		System.out.println("empId " + empId);
 		corsOrginHeaders();
-		ResourceSupport resource = new ResourceSupport();
+		ResourceSupport resource = new ResourceSupport(); 
 		
 		try {
 			List<EmployeeProfileReport> employeeProfileList = userService.getEmployeeProfileReport(empId);
