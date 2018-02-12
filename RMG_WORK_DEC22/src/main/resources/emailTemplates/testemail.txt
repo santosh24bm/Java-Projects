@@ -1,0 +1,13 @@
+<html>
+ 
+<head></head>
+ 
+<body>
+    <p>Dear ${firstName} ${lastName},</p>
+    <p>This is the mail related to time sheet details submitted by the employees <b>SuccesFully</b></p>
+   <br>
+    <span>${signature}</span><br/>
+    <span>${location}</span>
+</body>
+ 
+</html>

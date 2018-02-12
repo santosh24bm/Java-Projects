@@ -1,0 +1,91 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd ">
+
+	<context:annotation-config />
+	<context:component-scan base-package="cigniti.*" />
+	<mvc:annotation-driven />
+	
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- Local DB details -->
+		<!-- <property name="url" value="jdbc:mysql://172.16.3.38:3306/timesheet_db" /> -->
+		 <property name="url" value="jdbc:mysql://localhost:3306/rmgportal" /> 
+		 
+		<!-- http://172.16.28.27:8080/rmg/mytr/authenticate -->	
+ 	 	<!-- <property name="url" value="jdbc:mysql://172.16.3.38:3306/timesheet_merged_test_db" /> -->
+		 <!-- <property name="url" value="jdbc:mysql://localhost:3306/timesheet_new_db" />  -->
+		<!-- <property name="url" value="jdbc:mysql://172.16.2.5:3306/mytr" /> -->
+		<property name="username" value="root" />
+		<property name="password" value="Ctl@1234" />
+		<!-- <property name="password" value="root" />  -->
+	</bean>
+	
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- <property name="packagesToScan" value="cigniti.timesheet.bean" /> -->
+		  <property name="packagesToScan">
+         <array>
+              <value>cigniti.rmg.entities</value>
+         </array>
+     </property>   
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.jdbc.batch_size">20</prop>
+				
+			</props>
+		</property>
+	</bean>
+	 <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="cigniti-com.mail.protection.outlook.com"/>
+ 		<property name="port" value="25" /> 
+		<property name="username" value="kasi.kurva@cigniti.com" />
+		<property name="password" value="Nov2017$$" />
+		
+		<!--The name of the property, following JavaBean naming conventions-->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="freeMarkerConfigurationFactory"
+	class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+	<property name="templateLoaderPath" value="classpath:/emailTemplates/" />
+	<property name="preferFileSystemAccess" value="false" />
+ </bean>
+ 
+ 
+ <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+ 
+<!--	<bean id="freeMarkerConfiguration" class="freemarker.template.Configuration"
+		factory-bean="freeMarkerConfigurationFactory" factory-method="createConfiguration"
+		 /> --> <!-- scope="prototype" -->
+	
+	
+	
+	<mvc:default-servlet-handler />
+	<mvc:resources mapping="/**" location="/WEB-INF/" /> 
+	 <mvc:annotation-driven>
+        <mvc:message-converters>
+           <bean
+             class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+</beans>

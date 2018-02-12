@@ -1,0 +1,14 @@
+<html>
+ 
+<head></head>
+ 
+<body>
+    <p>Hi ${empName},</p>
+    <p>Time Sheet Report for <b>"${timePeriodName}"</b> has been <b>${timesheetStatus}</b> by ${approverName}.</p>
+    <br>
+    <p><span>${greeting}</span></p>
+    <span>${signature}</span><br/>
+    <p>*** This is an automatically generated email, please do not reply ***</p>
+</body>
+ 
+</html>

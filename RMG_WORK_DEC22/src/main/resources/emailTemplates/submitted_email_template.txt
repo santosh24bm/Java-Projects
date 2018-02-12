@@ -1,0 +1,28 @@
+<html>
+<head>
+</head>
+<body>
+    <p>Hi ${approverName},</p>
+    
+	<p>Time Report for <b>"${timePeriodName}"</b> has been submitted by <b>"${empId} - ${empName}"</b>.</p>
+	<p><b>Time Report Summary</b></p>
+    <div>${timeReportSummary}</div>
+	<br>
+	<p><span>${greeting}</span></p>
+    <span>${signature}</span><br/>
+    <br/>
+    <table>
+    <tr>
+    <td>
+    <a href=${ApproveUrl}>Approve</a>
+    </td>
+    <td>&nbsp;&nbsp;</td>
+    <td>&nbsp;&nbsp;</td>
+    <td>
+    <a href=${RejectUrl}>Reject</a>
+    </td>
+    </tr></table>
+<p>*** This is an automatically generated email, please do not reply ***</p>
+</body>
+ 
+</html>
